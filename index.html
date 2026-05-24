@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 ENI | Plateforme Apprentissage Interactive</title>
+    <style>
+        /* ========== STYLE GÉNÉRAL ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Arial', 'Tahoma', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Barre de navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff0066, #ffcc00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links button {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .nav-links button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* En-tête principal */
+        .hero {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            background: linear-gradient(45deg, #ff0066, #ffcc00, #00ff66);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rainbow 3s infinite;
+        }
+
+        @keyframes rainbow {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        .hero p {
+            color: #ccc;
+            margin-top: 10px;
+        }
+
+        /* Grille de contenu */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        /* Cartes */
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            color: #ffd966;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Blocs de code */
+        .code-block {
+            background: #1e1e2e;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            color: #cbd5e1;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* Éléments qui s'expliquent au survol */
+        .hover-explain {
+            transition: all 0.3s;
+            cursor: pointer;
+            display: inline-block;
+            border-radius: 5px;
+            padding: 2px 5px;
+        }
+
+        .hover-explain:hover {
+            background: #ffd966;
+            color: #1e1e2e;
+            text-shadow: 0 0 5px white;
+            transform: scale(1.02);
+            box-shadow: 0 0 15px #ffd966;
+        }
+
+        /* Zone d'explication principale */
+        .explanation-area {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 5px solid #ffd966;
+            position: sticky;
+            bottom: 20px;
+        }
+
+        .explanation-title {
+            color: #ffd966;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .explanation-text {
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        /* Boîtes de démonstration */
+        .demo-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        /* Vidéo responsive */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            margin: 15px 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+        }
+
+        /* Image responsive */
+        .demo-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .demo-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px #ffd966;
+        }
+
+        /* Boutons quiz */
+        .quiz-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            margin: 8px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            min-width: 120px;
+        }
+
+        .quiz-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .quiz-btn:active {
+            transform: translateY(2px);
+        }
+
+        .correct-feedback {
+            background: rgba(0, 255, 0, 0.2);
+            border-left: 4px solid #00ff00;
+        }
+
+        .wrong-feedback {
+            background: rgba(255, 0, 0, 0.2);
+            border-left: 4px solid #ff0000;
+        }
+
+        /* Barre de progression */
+        .progress-bar-custom {
+            background: #333;
+            border-radius: 20px;
+            height: 25px;
+            overflow: hidden;
+        }
+
+        /* Formulaires */
+        input,
+        select,
+        textarea {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 10px;
+            border: none;
+            width: calc(100% - 20px);
+        }
+
+        /* Tableaux */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px;
+            text-align: center;
+            color: white;
+        }
+
+        th {
+            background: rgba(255, 215, 0, 0.3);
+        }
+
+        @media (max-width: 700px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .quiz-btn {
+                padding: 8px 12px;
+                min-width: 90px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Barre de navigation -->
+        <div class="navbar">
+            <div class="logo">🏆 ENI Apprenants</div>
+            <div class="nav-links">
+                <button onclick="scrollToCard('html-card')">📄 HTML</button>
+                <button onclick="scrollToCard('css-card')">🎨 CSS</button>
+                <button onclick="scrollToCard('js-card')">⚡ JavaScript</button>
+                <button onclick="scrollToCard('video-card')">🎬 Tutoriel</button>
+                <button onclick="scrollToCard('test-card')">📊 Quiz</button>
+            </div>
+        </div>
+
+        <!-- En-tête -->
+        <div class="hero">
+            <h1>✨ Passe la souris sur n'importe quel élément pour voir son explication ! ✨</h1>
+            <p>📖 Chaque mot bleu ou jaune affiche sa définition | Teste tes connaissances avec le Quiz !</p>
+            <p style="color:#ffd966;">🏫 Projet spécial pour l'ISIM G - Apprendre le code en s'amusant</p>
+        </div>
+
+        <!-- ==================== SECTION HTML ==================== -->
+        <div class="grid">
+            <div class="card" id="html-card">
+                <h2>📄 <span class="hover-explain"
+                        data-explain="HTML est le squelette de toute page web. C'est la structure.">Langage HTML</span>
+                    - La structure</h2>
+                <div class="code-block">
+                    <pre>
+<span class="hover-explain" data-explain="&lt;!DOCTYPE html&gt; : Indique au navigateur que c'est une page HTML5 moderne.">&lt;!DOCTYPE html&gt;</span>
+<span class="hover-explain" data-explain="&lt;html&gt; : La racine qui contient tout le contenu de la page.">&lt;html&gt;</span>
+<span class="hover-explain" data-explain="&lt;head&gt; : Contient les infos cachées (titre, liens CSS...).">&lt;head&gt;</span>
+    <span class="hover-explain" data-explain="&lt;title&gt; : Le nom qui s'affiche dans l'onglet du navigateur.">&lt;title&gt;</span>Ma Page<span class="hover-explain" data-explain="&lt;/title&gt; : Fermeture de la balise titre.">&lt;/title&gt;</span>
+<span class="hover-explain" data-explain="&lt;/head&gt; : Fermeture de l'en-tête.">&lt;/head&gt;</span>
+<span class="hover-explain" data-explain="&lt;body&gt; : Contient tout ce que l'utilisateur voit.">&lt;body&gt;</span>
+    <span class="hover-explain" data-explain="&lt;h1&gt; à &lt;h6&gt; : Titres de différentes tailles (h1 est le plus important).">&lt;h1&gt;</span>Titre principal<span class="hover-explain" data-explain="&lt;/h1&gt; : Fermeture du titre.">&lt;/h1&gt;</span>
+    <span class="hover-explain" data-explain="&lt;p&gt; : Un paragraphe de texte normal.">&lt;p&gt;</span>Un texte explicatif.<span class="hover-explain" data-explain="&lt;/p&gt; : Fermeture du paragraphe.">&lt;/p&gt;</span>
+    <span class="hover-explain" data-explain="&lt;a href='...'&gt; : Un lien hypertexte pour naviguer.">&lt;a href="https://exemple.com"&gt;</span>Clique ici<span class="hover-explain" data-explain="&lt;/a&gt; : Fermeture du lien.">&lt;/a&gt;</span>
+    <span class="hover-explain" data-explain="&lt;img&gt; : Affiche une image. src = source, alt = description.">&lt;img src="photo.jpg" alt="Description"&gt;</span>
+    <span class="hover-explain" data-explain="&lt;div&gt; : Un conteneur générique pour structurer.">&lt;div&gt;</span>...<span class="hover-explain" data-explain="&lt;/div&gt; : Fermeture du conteneur.">&lt;/div&gt;</span>
+<span class="hover-explain" data-explain="&lt;/body&gt; : Fermeture du corps de la page.">&lt;/body&gt;</span>
+<span class="hover-explain" data-explain="&lt;/html&gt; : Fermeture de la racine.">&lt;/html&gt;</span>
+                </pre>
+                </div>
+            </div>
+
+            <!-- ==================== SECTION CSS ==================== -->
+            <div class="card" id="css-card">
+                <h2>🎨 <span class="hover-explain" data-explain="CSS est le maquillage et l'habillage du site.">Langage
+                        CSS</span> - Le style</h2>
+                <div class="code-block">
+                    <pre>
+<span class="hover-explain" data-explain="Sélecteur : Choisit quel élément on veut styliser.">h1</span> {
+    <span class="hover-explain" data-explain="color : Change la couleur du texte.">color</span>: <span class="hover-explain" data-explain="blue, red, green... noms de couleurs.">blue</span>;
+    <span class="hover-explain" data-explain="font-size : Change la taille du texte.">font-size</span>: <span class="hover-explain" data-explain="px = pixels, unité de mesure.">24px</span>;
+    <span class="hover-explain" data-explain="background : Couleur ou image d'arrière-plan.">background</span>: <span class="hover-explain" data-explain="#ff0000 = rouge en code hexadécimal.">#ff0000</span>;
+}
+<span class="hover-explain" data-explain=".ma-classe : Un sélecteur de classe (point + nom) pour styliser plusieurs éléments.">.ma-classe</span> {
+    <span class="hover-explain" data-explain="border : Ajoute une bordure solide.">border</span>: <span class="hover-explain" data-explain="solid (trait plein), dashed (pointillé)">solid</span> <span class="hover-explain" data-explain="2px = épaisseur">2px</span> black;
+    <span class="hover-explain" data-explain="border-radius : Arrondit les coins.">border-radius</span>: <span class="hover-explain" data-explain="Valeur en px ou %">15px</span>;
+}
+                </pre>
+                </div>
+                <div class="demo-box">
+                    <div
+                        style="background:#ffd966; color:#1e1e2e; padding:15px; border-radius:15px; text-align:center; box-shadow:5px 5px 15px black;">
+                        ✅ Exemple : Un joli cadre avec CSS.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- ==================== SECTION JAVASCRIPT ==================== -->
+            <div class="card" id="js-card">
+                <h2>⚡ <span class="hover-explain"
+                        data-explain="JavaScript rend la page interactive et intelligente.">JavaScript</span> -
+                    L'interactivité</h2>
+                <div class="code-block">
+                    <pre>
+<span class="hover-explain" data-explain="let : Une variable qui peut changer.">let</span> nom = <span class="hover-explain" data-explain="Texte entre guillemets.">"Ali"</span>;
+<span class="hover-explain" data-explain="function : Un bloc de code qui fait une action.">function</span> direBonjour() {
+    <span class="hover-explain" data-explain="alert() : Ouvre une fenêtre popup.">alert</span>(<span class="hover-explain" data-explain="Message à afficher.">"Bonjour !"</span>);
+}
+<span class="hover-explain" data-explain="addEventListener : Déclenche une action au clic.">bouton.addEventListener</span>(<span class="hover-explain" data-explain="'click' = événement clic">'click'</span>, () => {
+    <span class="hover-explain" data-explain="innerHTML : Change le texte d'un élément.">document.getElementById('demo').innerHTML</span> = <span class="hover-explain" data-explain="Nouveau texte">"Texte modifié !"</span>;
+});
+                </pre>
+                </div>
+                <div class="demo-box">
+                    <button class="quiz-btn" onclick="alert('🎉 Exemple JavaScript ! Ceci est une alerte.')">🚀 Clique
+                        pour une alerte</button>
+                    <button class="quiz-btn"
+                        onclick="document.getElementById('js-demo').innerHTML = '✅ Texte changé par JavaScript !'">✏️
+                        Changer le texte</button>
+                    <p id="js-demo"
+                        style="background:rgba(255,255,255,0.2); padding:10px; border-radius:10px; margin-top:10px;">
+                        Passe la souris sur les boutons, puis clique !</p>
+                </div>
+            </div>
+
+            <!-- ==================== IMAGE SPÉCIFIQUE (ISIM G) ==================== -->
+            <div class="card">
+                <h2>🖼️ <span class="hover-explain"
+                        data-explain="Les images rendent le site vivant. Voici le logo que tu as demandé.">Exemple
+                        d'image intégrée</span></h2>
+                <div class="demo-box">
+                    <img class="demo-image"
+                        src="https://www.ecoles.com.tn/sites/default/files/styles/large/public/universite/logo/logo_isimG.jpg"
+                        alt="Logo ISIM G" style="max-width: 250px; margin: 0 auto; display: block;">
+                    <p style="margin-top: 15px; color:#ffd966;">🏫 Logo officiel de l'ISIM G – Passe la souris dessus !
+                    </p>
+                </div>
+                <div class="code-block">
+                    <pre>
+<span class="hover-explain" data-explain="Balise image : src contient le lien de l'image, alt décrit l'image.">&lt;img src="lien_de_l_image.jpg" alt="Logo ISIM G"&gt;</span>
+                </pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- ==================== VIDÉO TUTORIELLE ==================== -->
+            <div class="card" id="video-card">
+                <h2>🎬 <span class="hover-explain"
+                        data-explain="Voici un tutoriel vidéo sur le développement web.">Tutoriel vidéo intégré</span>
+                </h2>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/Pwatx1n1Ws0" title="Tutoriel YouTube" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+                <div class="code-block">
+                    <pre>
+<span class="hover-explain" data-explain="&lt;iframe&gt; : Permet d'intégrer une vidéo YouTube ou une autre page.">&lt;iframe</span> <span class="hover-explain" data-explain="src : Le lien de la vidéo (embed)">src</span>="https://www.youtube.com/embed/Pwatx1n1Ws0" 
+        <span class="hover-explain" data-explain="allowfullscreen : Permet le plein écran.">allowfullscreen</span><span class="hover-explain" data-explain="Fermeture de l'iframe">&gt;&lt;/iframe&gt;</span>
+                </pre>
+                </div>
+            </div>
+
+            <!-- ==================== SECTION TEST & GRAPHIQUE ==================== -->
+            <div class="card" id="test-card">
+                <h2>📊 <span class="hover-explain"
+                        data-explain="Teste tes connaissances et suis ta progression avec ce graphique interactif">Évalue
+                        ton niveau</span> - Quiz et Progression</h2>
+
+                <!-- Zone du quiz -->
+                <div class="demo-box" style="background: rgba(0,0,0,0.5);">
+                    <h3 style="color:#ffd966;">📝 Questionnaire - Choisis la bonne réponse</h3>
+
+                    <div id="quiz-container">
+                        <div id="question-number" style="color:white; margin-bottom:10px;">Question 1 / 5</div>
+                        <div id="question-text" style="color:white; font-size:1.1rem; margin-bottom:20px;">Quelle balise
+                            HTML permet de créer un lien hypertexte ?</div>
+
+                        <div id="answers">
+                            <button class="quiz-btn" onclick="checkAnswer(0, '&lt;a&gt;')">&lt;a&gt;</button>
+                            <button class="quiz-btn" onclick="checkAnswer(1, '&lt;link&gt;')">&lt;link&gt;</button>
+                            <button class="quiz-btn" onclick="checkAnswer(2, '&lt;href&gt;')">&lt;href&gt;</button>
+                            <button class="quiz-btn" onclick="checkAnswer(3, '&lt;url&gt;')">&lt;url&gt;</button>
+                        </div>
+
+                        <div id="feedback"
+                            style="margin-top:20px; padding:10px; border-radius:10px; background:rgba(255,255,255,0.1); color:#ffd966;">
+                            ⭐ Clique sur une réponse pour commencer !
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graphique de progression -->
+                <div class="demo-box" style="margin-top:20px;">
+                    <h3 style="color:#ffd966;">📈 Ta progression globale</h3>
+
+                    <canvas id="progressChart" width="400" height="200"
+                        style="width:100%; max-width:400px; height:auto; background:rgba(255,255,255,0.1); border-radius:15px; margin:10px auto; display:block;"></canvas>
+
+                    <div style="margin-top:20px;">
+                        <div style="display: flex; justify-content: space-between; color:white;">
+                            <span>📊 Niveau actuel :</span>
+                            <span id="levelText">Débutant</span>
+                            <span id="scorePercent">0%</span>
+                        </div>
+                        <div class="progress-bar-custom" style="margin-top:5px;">
+                            <div id="scoreFill"
+                                style="background: linear-gradient(90deg, #ff0066, #ffcc00); width:0%; height:25px; border-radius:20px; transition: width 0.5s; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="motivationMessage"
+                        style="margin-top:15px; padding:10px; background:rgba(255,215,0,0.2); border-radius:10px; color:#ffd966;">
+                        💪 Continue comme ça ! Chaque bonne réponse te rapproche de l'expertise.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ZONE D'EXPLICATION (SURVOL) ==================== -->
+        <div class="explanation-area" id="explanationArea">
+            <div class="explanation-title">📖 Explication de l'élément survolé :</div>
+            <div class="explanation-text" id="explanationText">
+                ✨ Passe ta souris sur n'importe quel mot jaune/bleu, sur l'image ou sur la vidéo pour voir une
+                explication détaillée !
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 20px; color: #888;">
+            <p>🏆 Projet École Normale d'Informatique | Tous les éléments s'expliquent au survol de la souris 🏆</p>
+            <p>🎯 Fait avec ❤️ pour apprendre HTML, CSS, JavaScript, les images et les vidéos.</p>
+        </div>
+    </div>
+
+    <script>
+        // ========== SYSTÈME D'EXPLICATION AU SURVOL ==========
+
+        function showExplanation(text) {
+            const explanationText = document.getElementById('explanationText');
+            explanationText.innerHTML = `✨ ${text} ✨`;
+            const area = document.getElementById('explanationArea');
+            area.style.borderLeftColor = '#ffaa00';
+            setTimeout(() => {
+                area.style.borderLeftColor = '#ffd966';
+            }, 300);
+        }
+
+        // Application aux éléments hover-explain
+        const explainElements = document.querySelectorAll('.hover-explain');
+        explainElements.forEach(el => {
+            const explainText = el.getAttribute('data-explain');
+            if (explainText) {
+                el.addEventListener('mouseenter', () => {
+                    showExplanation(explainText);
+                    el.style.background = '#ffd966';
+                    el.style.color = '#1e1e2e';
+                });
+                el.addEventListener('mouseleave', () => {
+                    el.style.background = 'transparent';
+                    el.style.color = '#cbd5e1';
+                });
+            }
+        });
+
+        // Explication pour l'image
+        const logoImg = document.querySelector('.demo-image');
+        if (logoImg) {
+            logoImg.addEventListener('mouseenter', () => {
+                showExplanation('🖼️ Ceci est une balise &lt;img&gt;. L\'attribut "src" pointe vers l\'URL de l\'image. L\'attribut "alt" donne une description pour l\'accessibilité.');
+            });
+        }
+
+        // Explication pour la vidéo
+        const videoFrame = document.querySelector('iframe');
+        if (videoFrame) {
+            videoFrame.addEventListener('mouseenter', () => {
+                showExplanation('🎬 Ceci est une vidéo intégrée via une balise &lt;iframe&gt;. Elle affiche un contenu externe (ici YouTube). L\'attribut "src" contient le lien de la vidéo.');
+            });
+        }
+
+        // Défilement fluide
+        function scrollToCard(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                showExplanation(`📖 Tu as navigué vers la section : ${id.replace('-card', '').toUpperCase()}`);
+            }
+        }
+
+        // ========== SYSTÈME DE QUIZ ET GRAPHIQUE ==========
+
+        const questions = [
+            {
+                text: "Quelle balise HTML permet de créer un lien hypertexte ?",
+                answers: ["&lt;a&gt;", "&lt;link&gt;", "&lt;href&gt;", "&lt;url&gt;"],
+                correct: 0,
+                explanation: "La balise &lt;a&gt; (ancre) est utilisée pour créer des liens. Exemple : &lt;a href='url'&gt;texte&lt;/a&gt;"
+            },
+            {
+                text: "Quelle propriété CSS change la couleur du texte ?",
+                answers: ["background", "text-color", "color", "font-color"],
+                correct: 2,
+                explanation: "La propriété 'color' change la couleur du texte. Exemple : color: red;"
+            },
+            {
+                text: "Comment écrit-on une fonction en JavaScript ?",
+                answers: ["def maFonction()", "create maFonction()", "function maFonction()", "func maFonction()"],
+                correct: 2,
+                explanation: "function maFonction() { ... } est la bonne syntaxe pour déclarer une fonction."
+            },
+            {
+                text: "Quel attribut HTML ajoute une description textuelle à une image ?",
+                answers: ["src", "href", "description", "alt"],
+                correct: 3,
+                explanation: "L'attribut 'alt' (alternative text) décrit l'image pour l'accessibilité."
+            },
+            {
+                text: "Quelle balise HTML permet d'intégrer une vidéo YouTube ?",
+                answers: ["&lt;video&gt;", "&lt;embed&gt;", "&lt;object&gt;", "&lt;iframe&gt;"],
+                correct: 3,
+                explanation: "La balise &lt;iframe&gt; permet d'intégrer du contenu externe comme une vidéo YouTube."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let quizCompleted = false;
+
+        function loadScore() {
+            const savedScore = localStorage.getItem('learningScore');
+            if (savedScore !== null) {
+                score = parseInt(savedScore);
+                updateProgressDisplay();
+            }
+        }
+
+        function saveScore() {
+            localStorage.setItem('learningScore', score);
+        }
+
+        function updateProgressDisplay() {
+            const percent = Math.min(100, Math.floor((score / questions.length) * 100));
+            const scoreFill = document.getElementById('scoreFill');
+            const scorePercent = document.getElementById('scorePercent');
+            const levelText = document.getElementById('levelText');
+
+            if (scoreFill) {
+                scoreFill.style.width = percent + '%';
+                scoreFill.innerHTML = percent + '%';
+            }
+            if (scorePercent) scorePercent.innerHTML = percent + '%';
+
+            if (percent < 20) levelText.innerHTML = "🌱 Débutant";
+            else if (percent < 40) levelText.innerHTML = "📖 Apprenti";
+            else if (percent < 60) levelText.innerHTML = "💪 Intermédiaire";
+            else if (percent < 80) levelText.innerHTML = "🚀 Avancé";
+            else levelText.innerHTML = "🏆 Expert !";
+
+            const msgDiv = document.getElementById('motivationMessage');
+            if (percent === 100) {
+                msgDiv.innerHTML = "🏆 FÉLICITATIONS ! Tu as un score parfait ! Tu es un véritable expert du web ! 🏆";
+            } else if (percent >= 80) {
+                msgDiv.innerHTML = "🌟 Impressionnant ! Tu maîtrises très bien les bases ! Continue à explorer ! 🌟";
+            } else if (percent >= 60) {
+                msgDiv.innerHTML = "👍 Très bon travail ! Quelques révisions et tu deviendras un pro ! 👍";
+            } else if (percent >= 40) {
+                msgDiv.innerHTML = "📚 Continue tes efforts ! Relis les explications de notre site ! 📚";
+            } else {
+                msgDiv.innerHTML = "💪 Chaque début est difficile ! Passe ta souris sur les codes pour réviser ! 💪";
+            }
+
+            updateChart(percent);
+        }
+
+        function updateChart(percent) {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            if (!ctx) return;
+
+            ctx.clearRect(0, 0, 400, 200);
+
+            ctx.fillStyle = 'rgba(255,255,255,0.1)';
+            ctx.fillRect(0, 0, 400, 200);
+
+            ctx.fillStyle = '#ffd966';
+            ctx.font = 'bold 14px "Segoe UI"';
+            ctx.fillText('📊 Score Global : ' + percent + '%', 140, 25);
+
+            const centerX = 200;
+            const centerY = 110;
+            const radius = 70;
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            ctx.fillStyle = '#333';
+            ctx.fill();
+
+            const angle = (percent / 100) * Math.PI * 2;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.arc(centerX, centerY, radius, -Math.PI / 2, -Math.PI / 2 + angle);
+            ctx.fillStyle = '#ffd966';
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius - 15, 0, Math.PI * 2);
+            ctx.fillStyle = '#1e1e2e';
+            ctx.fill();
+
+            ctx.fillStyle = '#ffd966';
+            ctx.font = 'bold 24px "Segoe UI"';
+            ctx.fillText(percent + '%', centerX - 30, centerY + 10);
+
+            ctx.fillStyle = '#ccc';
+            ctx.font = '10px Arial';
+            ctx.fillText('✅ Réponses justes', 20, 180);
+            ctx.fillStyle = '#ffd966';
+            ctx.fillText('🟡 Progression', 20, 195);
+        }
+
+        function checkAnswer(selectedIndex, selectedText) {
+            if (quizCompleted) {
+                document.getElementById('feedback').innerHTML = "🎉 Félicitations ! Tu as déjà terminé le quiz. Réinitialise pour refaire ! 🎉";
+                return;
+            }
+
+            const question = questions[currentQuestion];
+            const isCorrect = (selectedIndex === question.correct);
+            const feedbackDiv = document.getElementById('feedback');
+
+            if (isCorrect) {
+                if (currentQuestion >= score) {
+                    score++;
+                    saveScore();
+                }
+                feedbackDiv.innerHTML = `✅ CORRECT ! ${question.explanation} ✅`;
+                feedbackDiv.className = 'correct-feedback';
+                feedbackDiv.style.padding = '10px';
+                feedbackDiv.style.borderRadius = '10px';
+            } else {
+                feedbackDiv.innerHTML = `❌ FAUX ! La bonne réponse était : ${question.answers[question.correct]}.<br>📖 ${question.explanation} ❌`;
+                feedbackDiv.className = 'wrong-feedback';
+                feedbackDiv.style.padding = '10px';
+                feedbackDiv.style.borderRadius = '10px';
+            }
+
+            currentQuestion++;
+
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                quizCompleted = true;
+                const percent = Math.floor((score / questions.length) * 100);
+                feedbackDiv.innerHTML += `<br><br>🎊 QUIZ TERMINÉ ! Ton score : ${score}/${questions.length} (${percent}%) 🎊<br>${getFinalMessage(percent)}`;
+
+                if (percent === 100) {
+                    feedbackDiv.innerHTML += `<br><br>🏆 Tu as un score PARFAIT ! Bravo champion ! 🏆`;
+                }
+
+                const restartBtn = document.createElement('button');
+                restartBtn.innerHTML = '🔄 Recommencer le quiz';
+                restartBtn.className = 'quiz-btn';
+                restartBtn.style.marginTop = '15px';
+                restartBtn.onclick = () => restartQuiz();
+                feedbackDiv.appendChild(restartBtn);
+            }
+
+            updateProgressDisplay();
+        }
+
+        function getFinalMessage(percent) {
+            if (percent === 100) return "🌟 PARFAIT ! Tu es un expert du développement web ! 🌟";
+            if (percent >= 80) return "🎉 Excellent ! Tu as très bien compris les bases ! 🎉";
+            if (percent >= 60) return "👍 Bien joué ! Continue à t'entraîner sur les explications du site ! 👍";
+            if (percent >= 40) return "📚 Bon début ! Passe ta souris sur les codes pour réviser 📚";
+            return "💪 Pas de souci ! Tout le monde commence quelque part. Relis les explications et réessaie ! 💪";
+        }
+
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            document.getElementById('question-number').innerHTML = `Question ${currentQuestion + 1} / ${questions.length}`;
+            document.getElementById('question-text').innerHTML = question.text;
+
+            const answersDiv = document.getElementById('answers');
+            answersDiv.innerHTML = '';
+
+            question.answers.forEach((answer, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-btn';
+                btn.innerHTML = answer;
+                btn.onclick = () => checkAnswer(index, answer);
+                answersDiv.appendChild(btn);
+            });
+
+            document.getElementById('feedback').innerHTML = "📖 Choisis ta réponse pour continuer...";
+            document.getElementById('feedback').className = '';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            quizCompleted = false;
+            saveScore();
+            loadQuestion();
+            updateProgressDisplay();
+            document.getElementById('feedback').innerHTML = "🔄 Quiz redémarré ! Bonne chance ! 🔄";
+            document.getElementById('feedback').className = '';
+        }
+
+        // Initialisation
+        function initQuiz() {
+            loadScore();
+            loadQuestion();
+            updateProgressDisplay();
+        }
+
+        initQuiz();
+
+        // Message de bienvenue
+        window.onload = () => {
+            showExplanation('🌟 Bienvenue ! Passe ta souris sur les mots jaunes, l\'image ou la vidéo pour apprendre en t\'amusant !');
+            console.log('🚀 Site prêt ! Tous les éléments s\'expliquent au survol.');
+        };
+    </script>
+</body>
+
+</html>

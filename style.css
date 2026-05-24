@@ -1,0 +1,40 @@
+/* Styles pour le quiz */
+.quiz-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    margin: 8px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+    min-width: 120px;
+}
+
+.quiz-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.quiz-btn:active {
+    transform: translateY(2px);
+}
+
+.correct-feedback {
+    background: rgba(0, 255, 0, 0.2);
+    border-left: 4px solid #00ff00;
+}
+
+.wrong-feedback {
+    background: rgba(255, 0, 0, 0.2);
+    border-left: 4px solid #ff0000;
+}
+
+/* Barre de progression personnalisée */
+.progress-bar-custom {
+    background: #333;
+    border-radius: 20px;
+    height: 25px;
+    overflow: hidden;
+}
